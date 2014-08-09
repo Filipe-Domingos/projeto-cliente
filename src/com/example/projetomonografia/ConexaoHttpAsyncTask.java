@@ -1,18 +1,18 @@
 package com.example.projetomonografia;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * Classe assíncrona de conexão com servidor remoto.
+ * Classe assï¿½ncrona de conexï¿½o com servidor remoto.
  * 
  * @author Thiago
  */
@@ -28,7 +28,7 @@ public class ConexaoHttpAsyncTask extends AsyncTask<String, Void, String> {
 	}
 
 	protected void onPostExecute(String result) {
-		String textoResultado = "";
+		String textoResultado;
 
 		// remove progresso
 		carregando.dismiss();
@@ -46,7 +46,7 @@ public class ConexaoHttpAsyncTask extends AsyncTask<String, Void, String> {
 		
 		
 		//if (Boolean.parseBoolean(result.trim().substring(0, 4)) == true) {
-		if (Boolean.parseBoolean(resposta) == true) {
+		if (Boolean.parseBoolean(resposta)) {
 			textoResultado = "Coordenadas enviada com sucesso.";
 		} else {
 			textoResultado = "Ocorreu um erro.";
