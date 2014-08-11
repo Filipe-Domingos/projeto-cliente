@@ -13,8 +13,14 @@ public class Rastreador implements LocationListener {
 
     private String latitude, longitude;
 
+    /**
+     * Tempo de latência para atualizações de localização.
+     */
     private static final long TEMPO_ATUALIZACAO = 0;//1000 * 60 * 10; // 10 minutos
 
+    /**
+     * Distância mínima para haver atualizações.
+     */
     private static final float MIN_DISTANCIA = 0; // 10 metros
 
     private LocationManager locationManager;
@@ -33,7 +39,7 @@ public class Rastreador implements LocationListener {
     }
 
     /**
-     * Carrega funções de localiza??o do Android.
+     * Carrega funções de localização do Android.
      */
     public void liga() {
 
@@ -57,12 +63,20 @@ public class Rastreador implements LocationListener {
         Log.w("Impossível location provider.", "Impossível location provider.");
     } // fim
 
+    /**
+     * Pausa rastreamento.
+     *
+     * @link http://stackoverflow.com/questions/8539971/having-some-trouble-getting-my-gps-sensor-to-stop/8546115#8546115
+     */
     public void desliga() {
-        // ver:
-        // http://stackoverflow.com/questions/8539971/having-some-trouble-getting-my-gps-sensor-to-stop/8546115#8546115
         locationManager.removeUpdates(this);
     }
 
+    /**
+     * Quando houver alguma mudança de localização obter coordenadas e atualizar mapa.
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location) {
         // obtendo coordenadas

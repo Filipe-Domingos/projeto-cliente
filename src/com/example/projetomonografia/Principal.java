@@ -14,7 +14,7 @@ import android.widget.Button;
 /**
  * Desenvolvimento de um pr?tipo de rastreamento utilizando a API do Android
  * para conclus?o do projeto de monografia de rastreamento de dispositivos
- * m?veis.
+ * móveis.
  *
  * @author Thiago Silva Prates
  * @since 02/05/2013
@@ -26,16 +26,23 @@ public class Principal extends Activity implements
 
     private Rastreador rastreador;
 
-    private String numeroTelefone;
+    /**
+     * Identificação do aparelho móvel.
+     *
+     * @link http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity
+     */
+    private String tel_IMEI;
 
     private Mapa mapa;
 
     private final static String URL_SERVIDOR = "http://tracking.comoj.com/postdata.php";// "http://192.168.56.1/projeto_monografia/postdata.php";
 
-    private final static String API_KEY = "teste"; // chave para utiliza??o do servidor
+    private final static String API_KEY = "teste"; // chave para utilização do webservice
+
+    private TelefoneInfo telInfo;
 
     /**
-     * Caixa de aviso
+     * Caixa de aviso ao usuário.
      *
      * @param title
      * @param msg
@@ -59,9 +66,10 @@ public class Principal extends Activity implements
         setContentView(R.layout.activity_main);
 
         // telefone
-        TelephonyManager telManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        numeroTelefone = telManager.getDeviceId();
+        telInfo = new TelefoneInfo((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE));
+        tel_IMEI = telInfo.getId();
 
+        // rastreador
         mapa = new Mapa(this, R.id.mapa);
         rastreador = new Rastreador((LocationManager) getSystemService(Context.LOCATION_SERVICE), mapa);
 
@@ -73,12 +81,15 @@ public class Principal extends Activity implements
 
     @Override
     public void onClick(View v) {
-        if (rastreador.getLatitude() == null && rastreador.getLongitude() == null) {
+        String lat = rastreador.getLatitude();
+        String lng = rastreador.getLongitude();
+
+        if (lat == null && lng == null) {
             _mostraMessagem("Erro",
                     "Desculpe, não foi poss?vel obter a longitude e latitude.");
         } else {
             new ConexaoHttpAssincrona(Principal.this).execute(URL_SERVIDOR,
-                    rastreador.getLatitude(), rastreador.getLongitude(), numeroTelefone, API_KEY);
+                    lat, lng, tel_IMEI, API_KEY);
         }
     }
 
