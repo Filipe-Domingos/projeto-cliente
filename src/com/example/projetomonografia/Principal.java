@@ -86,7 +86,7 @@ public class Principal extends Activity implements
 
         if (lat == null && lng == null) {
             _mostraMessagem("Erro",
-                    "Desculpe, não foi poss?vel obter a longitude e latitude.");
+                    "Desculpe, não foi possível obter a longitude e latitude.");
         } else {
             new ConexaoHttpAssincrona(Principal.this).execute(URL_SERVIDOR,
                     lat, lng, tel_IMEI, API_KEY);
