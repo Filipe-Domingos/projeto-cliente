@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
+ * Classe rastreador.
+ *
  * Created by Thiago on 10/08/2014.
  */
 public class Rastreador implements LocationListener {
 
-    private String latitude, longitude;
+    private Double latitude = null;
+    private Double longitude = null;
 
     /**
      * Tempo de latência para atualizações de localização.
@@ -25,7 +28,7 @@ public class Rastreador implements LocationListener {
 
     private LocationManager locationManager;
 
-    private Mapa mapa;
+    private MapaRastreador mapa;
 
     /**
      * Contrututor.
@@ -33,7 +36,7 @@ public class Rastreador implements LocationListener {
      * @param locationManager
      * @param mapa
      */
-    public Rastreador(LocationManager locationManager, Mapa mapa) {
+    public Rastreador(LocationManager locationManager, MapaRastreador mapa) {
         this.locationManager = locationManager;
         this.mapa = mapa;
     }
@@ -80,10 +83,10 @@ public class Rastreador implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         // obtendo coordenadas
-        latitude = String.valueOf(location.getLatitude());
-        longitude = String.valueOf(location.getLongitude());
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
 
-        mapa.atualiza(latitude, longitude);
+        mapa.atualizaCoordenadas(latitude, longitude);
     } // fim:onLocationChanged
 
     @Override
@@ -98,11 +101,21 @@ public class Rastreador implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
-    public String getLatitude() {
+    /**
+     * Latitude.
+     *
+     * @return
+     */
+    public Double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    /**
+     * Longitude.
+     *
+     * @return
+     */
+    public Double getLongitude() {
         return longitude;
     }
 }

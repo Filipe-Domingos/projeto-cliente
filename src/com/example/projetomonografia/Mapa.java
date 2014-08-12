@@ -10,7 +10,7 @@ import android.webkit.WebViewClient;
 /**
  * Created by Thiago on 09/08/2014.
  */
-public class Mapa {
+public class Mapa implements MapaRastreador {
 
     private WebView mapa;
 
@@ -38,7 +38,7 @@ public class Mapa {
         }); // fim: setWebViewClient
     }
 
-    public void atualiza(String latitude, String longitude) {
+    public void atualizaCoordenadas(Double latitude, Double longitude) {
         // contruindo mapa
         String url = "http://maps.googleapis.com/maps/api/staticmap?"
                 + "size=300x300&sensor=true&markers=color:red|" + latitude

@@ -81,15 +81,15 @@ public class Principal extends Activity implements
 
     @Override
     public void onClick(View v) {
-        String lat = rastreador.getLatitude();
-        String lng = rastreador.getLongitude();
+        Double lat = (rastreador.getLatitude());
+        Double lng = (rastreador.getLongitude());
 
         if (lat == null && lng == null) {
             _mostraMessagem("Erro",
                     "Desculpe, não foi possível obter a longitude e latitude.");
         } else {
             new ConexaoHttpAssincrona(Principal.this).execute(URL_SERVIDOR,
-                    lat, lng, tel_IMEI, API_KEY);
+                    String.valueOf(lat), String.valueOf(lng), tel_IMEI, API_KEY);
         }
     }
 
