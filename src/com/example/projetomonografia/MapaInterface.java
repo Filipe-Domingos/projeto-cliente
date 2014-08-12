@@ -5,6 +5,6 @@ package com.example.projetomonografia;
  *
  * Created by Thiago on 12/08/2014.
  */
-public interface MapaRastreador {
+public interface MapaInterface {
     public void atualizaCoordenadas(Double latitude, Double longitude);
 }

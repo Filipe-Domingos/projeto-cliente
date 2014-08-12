@@ -81,8 +81,8 @@ public class Principal extends Activity implements
 
     @Override
     public void onClick(View v) {
-        Double lat = (rastreador.getLatitude());
-        Double lng = (rastreador.getLongitude());
+        Double lat = rastreador.getLatitude();
+        Double lng = rastreador.getLongitude();
 
         if (lat == null && lng == null) {
             _mostraMessagem("Erro",

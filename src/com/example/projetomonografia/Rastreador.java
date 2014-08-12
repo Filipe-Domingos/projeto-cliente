@@ -4,17 +4,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Classe rastreador.
- *
  * Created by Thiago on 10/08/2014.
  */
-public class Rastreador implements LocationListener {
-
-    private Double latitude = null;
-    private Double longitude = null;
+public class Rastreador extends AbstractRastreador implements LocationListener {
 
     /**
      * Tempo de latência para atualizações de localização.
@@ -28,7 +23,6 @@ public class Rastreador implements LocationListener {
 
     private LocationManager locationManager;
 
-    private MapaRastreador mapa;
 
     /**
      * Contrututor.
@@ -36,16 +30,40 @@ public class Rastreador implements LocationListener {
      * @param locationManager
      * @param mapa
      */
-    public Rastreador(LocationManager locationManager, MapaRastreador mapa) {
+    public Rastreador(LocationManager locationManager, MapaInterface mapa) {
+        super(mapa);
         this.locationManager = locationManager;
-        this.mapa = mapa;
+    }
+
+
+    /**
+     * Quando houver alguma mudança de localização obter coordenadas e atualizar mapa.
+     *
+     * @param location
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        Double lat = location.getLatitude();
+        Double lng = location.getLongitude();
+        atualizaMapa(lat, lng);
+    } // fim:onLocationChanged
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
     /**
      * Carrega funções de localização do Android.
      */
     public void liga() {
-
         boolean isEnabledGPS = false;
 
         // GPS esta habilitado
@@ -62,8 +80,7 @@ public class Rastreador implements LocationListener {
                     TEMPO_ATUALIZACAO, MIN_DISTANCIA, this);
 
         }
-
-        Log.w("Impossível location provider.", "Impossível location provider.");
+        // Log.w("Impossível location provider.", "Impossível location provider.");
     } // fim
 
     /**
@@ -73,49 +90,5 @@ public class Rastreador implements LocationListener {
      */
     public void desliga() {
         locationManager.removeUpdates(this);
-    }
-
-    /**
-     * Quando houver alguma mudança de localização obter coordenadas e atualizar mapa.
-     *
-     * @param location
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-        // obtendo coordenadas
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-
-        mapa.atualizaCoordenadas(latitude, longitude);
-    } // fim:onLocationChanged
-
-    @Override
-    public void onProviderDisabled(String provider) {
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
-
-    /**
-     * Latitude.
-     *
-     * @return
-     */
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    /**
-     * Longitude.
-     *
-     * @return
-     */
-    public Double getLongitude() {
-        return longitude;
     }
 }

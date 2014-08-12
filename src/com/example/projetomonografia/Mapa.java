@@ -8,9 +8,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 /**
+ * Classe Mapa.
  * Created by Thiago on 09/08/2014.
  */
-public class Mapa implements MapaRastreador {
+public class Mapa implements MapaInterface {
 
     private WebView mapa;
 
