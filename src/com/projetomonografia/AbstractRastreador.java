@@ -1,4 +1,4 @@
-package com.example.projetomonografia;
+package com.projetomonografia;
 
 /**
  * Created by Thiago on 12/08/2014.

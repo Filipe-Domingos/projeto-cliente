@@ -1,4 +1,4 @@
-package com.example.projetomonografia;
+package com.projetomonografia;
 
 import android.app.ProgressDialog;
 import android.content.Context;

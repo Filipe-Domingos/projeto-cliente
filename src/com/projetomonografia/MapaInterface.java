@@ -1,4 +1,4 @@
-package com.example.projetomonografia;
+package com.projetomonografia;
 
 /**
  * Mapa rastreado.
