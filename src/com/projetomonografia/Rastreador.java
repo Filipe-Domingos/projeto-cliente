@@ -7,18 +7,18 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * Classe rastreador.
+ * Classe rastreadora.
  * 
- * Created by Thiago on 10/08/2014.
+ * @author Thiago
  */
 public class Rastreador extends AbstractRastreador implements LocationListener {
 
-	/**
+	/*
 	 * Tempo de mínimo para atualizações de localização.
 	 */
 	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; // 10 minutos
 
-	/**
+	/*
 	 * Distância mínima para haver atualizações.
 	 */
 	private static final float MIN_DISTANCIA = 0; // 10 metros
@@ -29,7 +29,7 @@ public class Rastreador extends AbstractRastreador implements LocationListener {
 	private LocationManager locationManager;
 
 	/**
-	 * Contrututor.
+	 * Construtor.
 	 *
 	 * @param locationManager
 	 * @param mapa
@@ -84,7 +84,7 @@ public class Rastreador extends AbstractRastreador implements LocationListener {
 		}
 
 		Log.w("Rastreamento", "Liga rastreamento.");
-	} // fim
+	} // fim: liga
 
 	/**
 	 * Pausa rastreamento.
@@ -95,5 +95,5 @@ public class Rastreador extends AbstractRastreador implements LocationListener {
 	public void desliga() {
 		locationManager.removeUpdates(this);
 		Log.w("Rastreamento", "Desliga rastreamento.");
-	}
+	} // fim: desliga
 }

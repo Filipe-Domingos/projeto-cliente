@@ -1,10 +1,17 @@
 package com.projetomonografia;
 
 /**
- * Mapa rastreado.
+ * Mapa interface.
  *
- * Created by Thiago on 12/08/2014.
+ * @author Thiago
  */
 public interface MapaInterface {
-    public void atualizaCoordenadas(Double latitude, Double longitude);
+
+	/**
+	 * Atualiza coordenadas no mapa.
+	 * 
+	 * @param latitude
+	 * @param longitude
+	 */
+	public void atualizaCoordenadas(Double latitude, Double longitude);
 }
