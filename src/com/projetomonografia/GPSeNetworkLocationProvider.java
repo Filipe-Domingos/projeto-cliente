@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * Classe rastreadora.
+ * Classe de geolocalização.
  * 
  * @author Thiago
  */
-public class Rastreador extends AbstractRastreador implements LocationListener {
+public class GPSeNetworkLocationProvider extends Rastreamento implements LocationListener {
 
 	/*
 	 * Tempo de mínimo para atualizações de localização.
@@ -34,7 +34,7 @@ public class Rastreador extends AbstractRastreador implements LocationListener {
 	 * @param locationManager
 	 * @param mapa
 	 */
-	public Rastreador(LocationManager locationManager, Mapa mapa) {
+	public GPSeNetworkLocationProvider(LocationManager locationManager, Mapa mapa) {
 		super(mapa);
 		this.locationManager = locationManager;
 	}

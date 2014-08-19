@@ -3,7 +3,7 @@ package com.projetomonografia;
 /**
  * Created by Thiago on 12/08/2014.
  */
-public abstract class AbstractRastreador {
+public abstract class Rastreamento {
     protected Double latitude = null;
     protected Double longitude = null;
 
@@ -13,7 +13,7 @@ public abstract class AbstractRastreador {
      */
     private Mapa mapa;
 
-    public AbstractRastreador(Mapa mapa) {
+    public Rastreamento(Mapa mapa) {
         this.mapa = mapa;
     }
 

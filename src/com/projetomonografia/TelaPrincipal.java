@@ -26,7 +26,7 @@ public class TelaPrincipal extends Activity implements
 
 	private Button fazerCheckIn;
 
-	private Rastreador rastreador;
+	private GPSeNetworkLocationProvider rastreador;
 
 	/**
 	 * Identificação do aparelho móvel.
@@ -36,7 +36,7 @@ public class TelaPrincipal extends Activity implements
 	 */
 	private String tel_IMEI;
 
-	private MapaView mapa;
+	private MapaWebView mapa;
 
 	private final static String URL_SERVIDOR = "http://tracking.comoj.com/postdata.php";// "http://192.168.56.1/projeto_monografia/postdata.php";
 
@@ -74,8 +74,8 @@ public class TelaPrincipal extends Activity implements
 		tel_IMEI = telInfo.getId();
 
 		// rastreador
-		mapa = new MapaView(this, R.id.mapa);
-		rastreador = new Rastreador(
+		mapa = new MapaWebView(this, R.id.mapa);
+		rastreador = new GPSeNetworkLocationProvider(
 				(LocationManager) getSystemService(Context.LOCATION_SERVICE),
 				mapa);
 

@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
  * 
  * @author Thiago
  */
-public class MapaView implements Mapa {
+public class MapaWebView implements Mapa {
 
 	private WebView mapa;
 
@@ -23,7 +23,7 @@ public class MapaView implements Mapa {
 	 * @param activity
 	 * @param view
 	 */
-	public MapaView(Activity activity, int view) {
+	public MapaWebView(Activity activity, int view) {
 		// mapa
 		carregando = new ProgressDialog(activity);
 		mapa = (WebView) activity.findViewById(view);
