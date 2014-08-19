@@ -11,9 +11,9 @@ public abstract class AbstractRastreador {
      * Construtor.
      *
      */
-    private MapaInterface mapa;
+    private Mapa mapa;
 
-    public AbstractRastreador(MapaInterface mapa) {
+    public AbstractRastreador(Mapa mapa) {
         this.mapa = mapa;
     }
 

@@ -36,7 +36,7 @@ public class TelaPrincipal extends Activity implements
 	 */
 	private String tel_IMEI;
 
-	private Mapa mapa;
+	private MapaView mapa;
 
 	private final static String URL_SERVIDOR = "http://tracking.comoj.com/postdata.php";// "http://192.168.56.1/projeto_monografia/postdata.php";
 
@@ -74,7 +74,7 @@ public class TelaPrincipal extends Activity implements
 		tel_IMEI = telInfo.getId();
 
 		// rastreador
-		mapa = new Mapa(this, R.id.mapa);
+		mapa = new MapaView(this, R.id.mapa);
 		rastreador = new Rastreador(
 				(LocationManager) getSystemService(Context.LOCATION_SERVICE),
 				mapa);

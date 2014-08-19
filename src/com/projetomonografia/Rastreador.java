@@ -34,7 +34,7 @@ public class Rastreador extends AbstractRastreador implements LocationListener {
 	 * @param locationManager
 	 * @param mapa
 	 */
-	public Rastreador(LocationManager locationManager, MapaInterface mapa) {
+	public Rastreador(LocationManager locationManager, Mapa mapa) {
 		super(mapa);
 		this.locationManager = locationManager;
 	}
