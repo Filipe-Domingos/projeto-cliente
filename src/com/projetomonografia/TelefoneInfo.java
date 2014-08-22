@@ -4,7 +4,8 @@ import android.telephony.TelephonyManager;
 
 /**
  * Classe para gerenciamento de informações do telefone.
- * Created by Thiago on 11/08/2014.
+ * 
+ * @author Thiago
  */
 public class TelefoneInfo {
     private TelephonyManager telephonyManager;

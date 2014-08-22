@@ -18,10 +18,10 @@ import android.widget.Button;
  * para conclusão do projeto de monografia de rastreamento de dispositivos
  * móveis.
  *
- * @author Thiago Silva Prates
- * @since 02/05/2013
+ * @author Thiago Silva
+ * 
  */
-public class TelaPrincipal extends Activity implements
+public class Principal extends Activity implements
 		android.view.View.OnClickListener {
 
 	private Button fazerCheckIn;
@@ -46,14 +46,13 @@ public class TelaPrincipal extends Activity implements
 	private TelefoneInfo telInfo;
 
 	/**
-	 * Caixa de aviso ao usuário.
+	 * Aviso ao usuário.
 	 *
 	 * @param title
 	 * @param msg
 	 */
 	private void _mostraMessagem(String title, String msg) {
-		new AlertDialog.Builder(TelaPrincipal.this).setTitle(title)
-				.setMessage(msg)
+		new AlertDialog.Builder(Principal.this).setTitle(title).setMessage(msg)
 				.setNeutralButton("Fechar", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -93,7 +92,7 @@ public class TelaPrincipal extends Activity implements
 			_mostraMessagem("Erro",
 					"Desculpe, não foi possível obter a longitude e latitude.");
 		} else {
-			new ConexaoHttpAssincrona(TelaPrincipal.this)
+			new ConexaoHttpAssincrona(Principal.this)
 					.execute(URL_SERVIDOR, String.valueOf(lat),
 							String.valueOf(lng), tel_IMEI, API_KEY);
 		}
