@@ -11,12 +11,13 @@ import android.util.Log;
  * 
  * @author Thiago
  */
-public class GPSeNetworkLocationProvider extends Rastreamento implements LocationListener {
+public class Rastreador extends Rastreamento implements LocationListener {
 
 	/*
 	 * Tempo de mínimo para atualizações de localização.
 	 */
-	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; // 10 minutos
+	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; // 10
+														// minutos
 
 	/*
 	 * Distância mínima para haver atualizações.
@@ -34,7 +35,7 @@ public class GPSeNetworkLocationProvider extends Rastreamento implements Locatio
 	 * @param locationManager
 	 * @param mapa
 	 */
-	public GPSeNetworkLocationProvider(LocationManager locationManager, Mapa mapa) {
+	public Rastreador(LocationManager locationManager, Mapa mapa) {
 		super(mapa);
 		this.locationManager = locationManager;
 	}
@@ -50,6 +51,7 @@ public class GPSeNetworkLocationProvider extends Rastreamento implements Locatio
 		Double lat = location.getLatitude();
 		Double lng = location.getLongitude();
 		atualizaMapa(lat, lng);
+		Log.i("Rastreamento", "Liga rastreamento.");
 	} // fim:onLocationChanged
 
 	@Override
@@ -83,7 +85,7 @@ public class GPSeNetworkLocationProvider extends Rastreamento implements Locatio
 
 		}
 
-		Log.w("Rastreamento", "Liga rastreamento.");
+		Log.i("Rastreamento", "Liga rastreamento.");
 	} // fim: liga
 
 	/**
@@ -94,6 +96,6 @@ public class GPSeNetworkLocationProvider extends Rastreamento implements Locatio
 	 */
 	public void desliga() {
 		locationManager.removeUpdates(this);
-		Log.w("Rastreamento", "Desliga rastreamento.");
+		Log.i("Rastreamento", "Desliga rastreamento.");
 	} // fim: desliga
 }
