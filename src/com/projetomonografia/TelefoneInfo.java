@@ -1,5 +1,7 @@
 package com.projetomonografia;
 
+import android.app.Activity;
+import android.content.Context;
 import android.telephony.TelephonyManager;
 
 /**
@@ -8,25 +10,31 @@ import android.telephony.TelephonyManager;
  * @author Thiago
  */
 public class TelefoneInfo {
-    private TelephonyManager telephonyManager;
+	/**
+	 * Telefone manager.
+	 */
+	private TelephonyManager telephonyManager;
 
-    /**
-     * Construtor.
-     *
-     * @param telephonyManager
-     */
-    public TelefoneInfo(TelephonyManager telephonyManager) {
-        this.telephonyManager = telephonyManager;
-    }
+	/**
+	 * Construtor.
+	 *
+	 * @param telephonyManager
+	 */
+	public TelefoneInfo(Activity activity) {
+		this.telephonyManager = (TelephonyManager) activity
+				.getSystemService(Context.TELEPHONY_SERVICE);
+	}
 
-    /**
-     * Retorna o IMEI do aparelho.
-     * *O IMEI pode ser encontrado no espaço destinado à bateria ou digitando *#06# no celular.
-     *
-     * @return IMEI
-     * @link <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity>
-     */
-    public String getId() {
-        return telephonyManager.getDeviceId();
-    }
+	/**
+	 * Retorna o IMEI do aparelho. *O IMEI pode ser encontrado no espaço
+	 * destinado à bateria ou digitando *#06# no celular.
+	 *
+	 * @return IMEI
+	 * @link 
+	 *       <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity
+	 *       >
+	 */
+	public String getId() {
+		return telephonyManager.getDeviceId();
+	}
 }

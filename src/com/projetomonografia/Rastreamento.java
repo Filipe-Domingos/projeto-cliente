@@ -3,47 +3,28 @@ package com.projetomonografia;
 /**
  * Created by Thiago on 12/08/2014.
  */
-public abstract class Rastreamento {
-    protected Double latitude = null;
-    protected Double longitude = null;
+interface Rastreamento {
 
-    /**
-     * Construtor.
-     *
-     */
-    private Mapa mapa;
+	/**
+	 * Atualiza o mapa a partir das coordenadas fornecidas.
+	 *
+	 * @param latitude
+	 * @param longitude
+	 */
+	public void atualiza(Double latitude, Double longitude);
 
-    public Rastreamento(Mapa mapa) {
-        this.mapa = mapa;
-    }
+	/**
+	 * Latitude.
+	 *
+	 * @return
+	 */
+	public Double getLatitude();
 
-    /**
-     * Atualiza o mapa a partir das coordenadas fornecidas.
-     *
-     * @param latitude
-     * @param longitude
-     */
-    public void atualizaMapa(Double latitude, Double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        mapa.atualizaCoordenadas(latitude, longitude);
-    }
+	/**
+	 * Longitude.
+	 *
+	 * @return
+	 */
+	public Double getLongitude();
 
-    /**
-     * Latitude.
-     *
-     * @return
-     */
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    /**
-     * Longitude.
-     *
-     * @return
-     */
-    public Double getLongitude() {
-        return longitude;
-    }
 }

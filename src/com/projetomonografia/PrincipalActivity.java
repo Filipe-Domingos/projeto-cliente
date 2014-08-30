@@ -1,15 +1,10 @@
 package com.projetomonografia;
 
-import com.projetomonografia.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,7 +26,9 @@ public class PrincipalActivity extends Activity implements
 	/**
 	 * Identificação do aparelho móvel.
 	 *
-	 * @link <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity>
+	 * @link 
+	 *       <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity
+	 *       >
 	 */
 	private String tel_IMEI;
 
@@ -50,7 +47,8 @@ public class PrincipalActivity extends Activity implements
 	 * @param msg
 	 */
 	private void _mostraMessagem(String title, String msg) {
-		new AlertDialog.Builder(PrincipalActivity.this).setTitle(title).setMessage(msg)
+		new AlertDialog.Builder(PrincipalActivity.this).setTitle(title)
+				.setMessage(msg)
 				.setNeutralButton("Fechar", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -66,15 +64,12 @@ public class PrincipalActivity extends Activity implements
 		setContentView(R.layout.activity_main);
 
 		// telefone
-		telInfo = new TelefoneInfo(
-				(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE));
+		telInfo = new TelefoneInfo(this);
 		tel_IMEI = telInfo.getId();
 
 		// rastreador
 		mapa = new MapaWebView(this, R.id.mapa);
-		rastreador = new Rastreador(
-				(LocationManager) getSystemService(Context.LOCATION_SERVICE),
-				mapa);
+		rastreador = new Rastreador(this, mapa);
 
 		// botao check-in
 		fazerCheckIn = (Button) findViewById(R.id.fazerCheckIn);
@@ -90,9 +85,9 @@ public class PrincipalActivity extends Activity implements
 			_mostraMessagem("Erro",
 					"Desculpe, não foi possível obter a longitude e latitude.");
 		} else {
-			new ConexaoHttpAssincrona(PrincipalActivity.this)
-					.execute(URL_SERVIDOR, String.valueOf(lat),
-							String.valueOf(lng), tel_IMEI, API_KEY);
+			new ConexaoHttpAssincrona(PrincipalActivity.this).execute(
+					URL_SERVIDOR, String.valueOf(lat), String.valueOf(lng),
+					tel_IMEI, API_KEY);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.projetomonografia;
 
+import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,7 +13,12 @@ import android.util.Log;
  * 
  * @author Thiago
  */
-public class Rastreador extends Rastreamento implements LocationListener {
+public class Rastreador implements Rastreamento, LocationListener {
+
+	/**
+	 * Coordenadas.
+	 */
+	private Double latitude = null, longitude = null;
 
 	/*
 	 * Tempo de mínimo para atualizações de localização.
@@ -30,14 +37,22 @@ public class Rastreador extends Rastreamento implements LocationListener {
 	private LocationManager locationManager;
 
 	/**
+	 * Mapa.
+	 *
+	 */
+	private Mapa mapa;
+
+	/**
 	 * Construtor.
 	 *
 	 * @param locationManager
 	 * @param mapa
 	 */
-	public Rastreador(LocationManager locationManager, Mapa mapa) {
-		super(mapa);
-		this.locationManager = locationManager;
+	public Rastreador(Activity activity, Mapa mapa) {
+		this.locationManager = (LocationManager) activity
+				.getSystemService(Context.LOCATION_SERVICE);
+		this.mapa = mapa;
+
 	}
 
 	/**
@@ -48,9 +63,9 @@ public class Rastreador extends Rastreamento implements LocationListener {
 	 */
 	@Override
 	public void onLocationChanged(Location location) {
-		Double lat = location.getLatitude();
-		Double lng = location.getLongitude();
-		atualizaMapa(lat, lng);
+		this.latitude = location.getLatitude();
+		this.longitude = location.getLongitude();
+		atualiza(latitude, longitude);
 		Log.i("Rastreamento", "Liga rastreamento.");
 	} // fim:onLocationChanged
 
@@ -70,11 +85,23 @@ public class Rastreador extends Rastreamento implements LocationListener {
 	 * Carrega funções de localização do Android.
 	 */
 	public void liga() {
+		Location location;
+
 		// GPS esta habilitado
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			locationManager.requestLocationUpdates(
 					LocationManager.GPS_PROVIDER, TEMPO_ATUALIZACAO,
 					MIN_DISTANCIA, this);
+
+			if (locationManager != null) {
+				location = locationManager
+						.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+				if (location != null) {
+					latitude = location.getLatitude();
+					longitude = location.getLongitude();
+					mapa.atualizaCoordenadas(latitude, longitude);
+				}
+			}
 		}
 
 		// 'NetWork Location Provider' esta habilitado
@@ -83,6 +110,15 @@ public class Rastreador extends Rastreamento implements LocationListener {
 					LocationManager.NETWORK_PROVIDER, TEMPO_ATUALIZACAO,
 					MIN_DISTANCIA, this);
 
+			if (locationManager != null) {
+				location = locationManager
+						.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+				if (location != null) {
+					latitude = location.getLatitude();
+					longitude = location.getLongitude();
+					mapa.atualizaCoordenadas(latitude, longitude);
+				}
+			}
 		}
 
 		Log.i("Rastreamento", "Liga rastreamento.");
@@ -92,10 +128,36 @@ public class Rastreador extends Rastreamento implements LocationListener {
 	 * Pausa rastreamento.
 	 *
 	 * @link 
-	 *       http://stackoverflow.com/questions/8539971/having-some-trouble-getting-my-gps-sensor-to-stop/8546115#8546115
+	 *       http://stackoverflow.com/questions/8539971/having-some-trouble-getting
+	 *       -my-gps-sensor-to-stop/8546115#8546115
 	 */
 	public void desliga() {
 		locationManager.removeUpdates(this);
 		Log.i("Rastreamento", "Desliga rastreamento.");
-	} // fim: desliga
+	}
+
+	/**
+	 * Atualiza o rastreamento para o mapa.
+	 */
+	public void atualiza(Double latitude, Double longitude) {
+		mapa.atualizaCoordenadas(latitude, longitude);
+	}
+
+	/**
+	 * Latitude.
+	 *
+	 * @return
+	 */
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	/**
+	 * Longitude.
+	 *
+	 * @return
+	 */
+	public Double getLongitude() {
+		return longitude;
+	}
 }
