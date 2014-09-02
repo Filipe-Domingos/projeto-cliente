@@ -5,7 +5,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 /**
- * Classe para gerenciamento de informações do telefone.
+ * Classe para informações do telefone.
  * 
  * @author Thiago
  */
@@ -31,8 +31,7 @@ public class TelefoneInfo {
 	 *
 	 * @return IMEI
 	 * @link 
-	 *       <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity
-	 *       >
+	 *       <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity>
 	 */
 	public String getId() {
 		return telephonyManager.getDeviceId();

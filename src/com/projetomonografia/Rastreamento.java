@@ -1,7 +1,9 @@
 package com.projetomonografia;
 
 /**
- * Created by Thiago on 12/08/2014.
+ * Interface Rastreamento.
+ * 
+ * @author Thiago
  */
 interface Rastreamento {
 
@@ -11,7 +13,7 @@ interface Rastreamento {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public void atualiza(Double latitude, Double longitude);
+	public void atualizaCoords(Double latitude, Double longitude);
 
 	/**
 	 * Latitude.

@@ -23,8 +23,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 	/*
 	 * Tempo de mínimo para atualizações de localização.
 	 */
-	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; // 10
-														// minutos
+	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; 10 minutos
 
 	/*
 	 * Distância mínima para haver atualizações.
@@ -65,9 +64,9 @@ public class Rastreador implements Rastreamento, LocationListener {
 	public void onLocationChanged(Location location) {
 		this.latitude = location.getLatitude();
 		this.longitude = location.getLongitude();
-		atualiza(latitude, longitude);
+		atualizaCoords(latitude, longitude);
 		Log.i("Rastreamento", "Liga rastreamento.");
-	} // fim:onLocationChanged
+	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
@@ -122,7 +121,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 		}
 
 		Log.i("Rastreamento", "Liga rastreamento.");
-	} // fim: liga
+	}
 
 	/**
 	 * Pausa rastreamento.
@@ -139,7 +138,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 	/**
 	 * Atualiza o rastreamento para o mapa.
 	 */
-	public void atualiza(Double latitude, Double longitude) {
+	public void atualizaCoords(Double latitude, Double longitude) {
 		mapa.atualizaCoordenadas(latitude, longitude);
 	}
 
