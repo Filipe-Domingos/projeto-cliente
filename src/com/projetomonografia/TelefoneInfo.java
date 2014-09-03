@@ -27,10 +27,10 @@ public class TelefoneInfo {
 
 	/**
 	 * Retorna o IMEI do aparelho. 
-	 * O IMEI pode ser encontrado no espaço destinado à bateria ou digitando *#06# no celular.
+	 * Obs.: O IMEI pode ser encontrado no espaço destinado à bateria ou digitando *#06# no celular.
 	 *
-	 * @return IMEI
 	 * @link <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity>
+	 * @return IMEI
 	 */
 	public String getIMEI() {
 		return telephonyManager.getDeviceId();

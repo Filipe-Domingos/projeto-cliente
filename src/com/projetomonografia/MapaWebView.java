@@ -24,8 +24,8 @@ public class MapaWebView implements Mapa {
 	 * @param view
 	 */
 	public MapaWebView(Activity activity, int view) {
-		// mapa
 		carregando = new ProgressDialog(activity);
+
 		mapa = (WebView) activity.findViewById(view);
 		mapa.setWebViewClient(new WebViewClient() {
 
@@ -42,7 +42,7 @@ public class MapaWebView implements Mapa {
 			public void onPageFinished(WebView view, String url) {
 				carregando.dismiss();
 			}
-		}); // fim: setWebViewClient
+		});
 	}
 
 	/**

@@ -30,29 +30,40 @@ public class PrincipalActivity extends Activity implements
 	 */
 	private String tel_IMEI;
 
+	/**
+	 * WebView mapa.
+	 */
 	private MapaWebView mapa;
 
+	/**
+	 * Url para teste.
+	 */
 	private final static String URL_SERVIDOR = "http://tracking.comoj.com/postdata.php";
 
-	private final static String API_KEY = "teste"; // API webservice
+	/**
+	 * API para acessor webservice (TESTE).
+	 */
+	private final static String API_KEY = "teste";
 
+	/**
+	 * Telefone info.
+	 */
 	private TelefoneInfo telInfo;
 
 	/**
 	 * Aviso ao usuário.
 	 *
-	 * @param title
+	 * @param titulo
 	 * @param msg
 	 */
-	private void _mostraMessagem(String title, String msg) {
-		new AlertDialog.Builder(PrincipalActivity.this).setTitle(title)
+	private void _mostraMessagem(String titulo, String msg) {
+		new AlertDialog.Builder(PrincipalActivity.this).setTitle(titulo)
 				.setMessage(msg)
 				.setNeutralButton("Fechar", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 					}
-
 				}).create().show();
 	}
 
@@ -80,7 +91,7 @@ public class PrincipalActivity extends Activity implements
 			_mostraMessagem("Erro",
 					"Desculpe, não foi possível obter a longitude e latitude.");
 		} else {
-			new ConexaoHttpAssincrona(PrincipalActivity.this).execute(
+			new ConexaoHttpAsync(PrincipalActivity.this).execute(
 					URL_SERVIDOR, String.valueOf(lat), String.valueOf(lng),
 					tel_IMEI, API_KEY);
 		}

@@ -18,7 +18,9 @@ import java.util.Set;
  */
 public class ConexaoHttp {
 	private static URL baseUrl = null;
+
 	private static HttpURLConnection http = null;
+
 	private static StringBuilder resultado = null;
 
 	/**
@@ -38,16 +40,15 @@ public class ConexaoHttp {
 			// http query builder
 			String params = "";
 			Set<String> paramsKey = parametros.keySet();
-			
+
 			for (String key : paramsKey) {
-				params += ("&" + key + "=" + URLEncoder.encode(
-						parametros.get(key), "UTF-8"));
+				params += String.format("&%s=%s", key, URLEncoder.encode(parametros.get(key), "UTF-8"));
 			}
-			
+
 			if (params.length() > 0) {
 				params = params.substring(1);
 			}
-			
+
 			http.setDoInput(true);
 			http.setDoOutput(true);
 
@@ -64,7 +65,7 @@ public class ConexaoHttp {
 			out.flush();
 			out.close();
 
-			// recebendo retorno
+			// retorno
 			String linha;
 			InputStreamReader leitor = new InputStreamReader(
 					http.getInputStream());
