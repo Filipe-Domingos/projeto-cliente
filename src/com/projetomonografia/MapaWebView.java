@@ -49,11 +49,10 @@ public class MapaWebView implements Mapa {
 	 * {@inheritDoc}
 	 */
 	public void desenhaEm(Double latitude, Double longitude) {
-		// contruindo mapa
 		String url = "http://maps.googleapis.com/maps/api/staticmap?"
 				+ "size=300x300&sensor=true&markers=color:red|" + latitude
 				+ "," + longitude;
 		mapa.loadUrl(url);
-	} // fim: atualizaCoordenadas
+	}
 
 }
