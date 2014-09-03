@@ -17,73 +17,65 @@ import java.util.Set;
  * @author Thiago
  */
 public class ConexaoHttp {
-
-	// endereço URL
-	static URL baseUrl = null;
-
-	// Classe Http de conexão
-	static HttpURLConnection httpUrl = null;
-
-	// string de retorno
-	static StringBuilder resultado = null;
+	private static URL baseUrl = null;
+	private static HttpURLConnection http = null;
+	private static StringBuilder resultado = null;
 
 	/**
-	 * Metodo que envia as coordenadas ao servidor.
+	 * Método que envia as coordenadas ao servidor.
 	 *
 	 * @param url
 	 * @param parametros
 	 * @return
 	 */
 	public static String em(String url, Map<String, String> parametros) {
-
 		resultado = new StringBuilder();
 
 		try {
 			baseUrl = new URL(url);
-			httpUrl = (HttpURLConnection) baseUrl.openConnection();
+			http = (HttpURLConnection) baseUrl.openConnection();
 
-			String paramsPost = "";
-			Set<String> paramKeys = parametros.keySet();
-			for (String key : paramKeys) {
-				paramsPost += ("&" + key + "=" + URLEncoder.encode(
+			// http query builder
+			String params = "";
+			Set<String> paramsKey = parametros.keySet();
+			
+			for (String key : paramsKey) {
+				params += ("&" + key + "=" + URLEncoder.encode(
 						parametros.get(key), "UTF-8"));
 			}
-
-			// remove '&' do inicio -> &key1=value1&key2=value2
-			if (paramsPost.length() > 0) {
-				paramsPost = paramsPost.substring(1);
+			
+			if (params.length() > 0) {
+				params = params.substring(1);
 			}
-
-			// set return output and input
-			httpUrl.setDoInput(true);
-			httpUrl.setDoOutput(true);
+			
+			http.setDoInput(true);
+			http.setDoOutput(true);
 
 			// http headers
-			httpUrl.setRequestMethod("POST");
-			httpUrl.setRequestProperty("Content-Type",
+			http.setRequestMethod("POST");
+			http.setRequestProperty("Content-Type",
 					"application/x-www-form-urlencoded");
-			httpUrl.setRequestProperty("Content-Length",
-					Integer.toString(paramsPost.getBytes().length));
+			http.setRequestProperty("Content-Length",
+					Integer.toString(params.getBytes().length));
 
 			// enviando dados
-			OutputStream out = httpUrl.getOutputStream();
-			out.write(paramsPost.getBytes());
+			OutputStream out = http.getOutputStream();
+			out.write(params.getBytes());
 			out.flush();
 			out.close();
 
-			// lendo retorna em string
-			String line;
-			InputStreamReader reader = new InputStreamReader(
-					httpUrl.getInputStream());
-			BufferedReader buffer = new BufferedReader(reader);
-			while ((line = buffer.readLine()) != null) {
-				resultado.append(line);
+			// recebendo retorno
+			String linha;
+			InputStreamReader leitor = new InputStreamReader(
+					http.getInputStream());
+			BufferedReader buffer = new BufferedReader(leitor);
+			while ((linha = buffer.readLine()) != null) {
+				resultado.append(linha);
 				resultado.append('\r');
 			}
 			buffer.close();
 
-			int code = httpUrl.getResponseCode();
-			if (code != HttpURLConnection.HTTP_OK) {
+			if (http.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				return "ERROR";
 			}
 
@@ -92,12 +84,11 @@ public class ConexaoHttp {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (httpUrl != null) {
-				httpUrl.disconnect(); // fecha conexão
+			if (http != null) {
+				http.disconnect();
 			}
 		}
 
 		return resultado.toString();
-
-	} // fim: connect
-} // fim: HttpConnection
+	}
+}

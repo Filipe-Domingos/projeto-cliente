@@ -17,9 +17,7 @@ import java.util.Map;
  * @author Thiago
  */
 public class ConexaoHttpAssincrona extends AsyncTask<String, Void, String> {
-
     private ProgressDialog carregando;
-
     private Context contexto;
 
     public ConexaoHttpAssincrona(Context c) {
@@ -28,9 +26,6 @@ public class ConexaoHttpAssincrona extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String result) {
-        String textoResultado;
-
-        // remove progresso
         carregando.dismiss();
 
         // verifica resposta do servidor
@@ -40,27 +35,25 @@ public class ConexaoHttpAssincrona extends AsyncTask<String, Void, String> {
         try {
             resposta = (String) new JSONObject(conteudoRetornado).get("result");
         } catch (JSONException e) {
-            //e.printStackTrace();
             resposta = "";
         }
 
-
-        //if (Boolean.parseBoolean(result.trim().substring(0, 4)) == true) {
+        String msgResultado;
         if (Boolean.parseBoolean(resposta)) {
-            textoResultado = "Coordenadas enviada com sucesso.";
+            msgResultado = "Coordenadas enviada com sucesso.";
         } else {
-            textoResultado = "Ocorreu um erro.";
+            msgResultado = "Ocorreu um erro.";
         }
 
-        Toast.makeText(contexto, textoResultado, Toast.LENGTH_LONG).show();
-    } // fim: onPostExecute
+        Toast.makeText(contexto, msgResultado, Toast.LENGTH_LONG).show();
+    }
 
     protected void onPreExecute() {
         carregando.setTitle("Por favor, aguarde uns instantes.");
         carregando.setMessage("Carregando...");
         carregando.setCancelable(false);
         carregando.show();
-    } // fim: onPreExecute
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -73,6 +66,6 @@ public class ConexaoHttpAssincrona extends AsyncTask<String, Void, String> {
         parametros.put("api", params[4]);
 
         return ConexaoHttp.em(url, parametros);
-    } // fim: doInBackground
+    }
 
-} // fim: AsyncHttpConnection
+}
