@@ -13,27 +13,56 @@ import android.util.Log;
  * 
  * @author Thiago
  */
-public class Rastreador implements Rastreamento, LocationListener {
+public class Rastreador implements Rastreamento {
 
 	/**
 	 * Coordenadas.
 	 */
 	private Double latitude = null, longitude = null;
 
-	/*
+	/**
 	 * Tempo de mínimo para atualizações de localização.
 	 */
-	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; 10 minutos
+	private static final long TEMPO_ATUALIZACAO = 0; // 1000 * 60 * 10; 10
+														// minutos
 
-	/*
+	/**
 	 * Distância mínima para haver atualizações.
 	 */
 	private static final float MIN_DISTANCIA = 0; // 10 metros
 
-	/*
-	 * Classe Android que provê os recursos de localização.
+	/**
+	 * Classe Android para recursos de localização.
 	 */
 	private LocationManager locationManager;
+
+	/**
+	 * Quando houver alguma mudança de localização obter coordenadas e atualizar
+	 * mapa.
+	 * 
+	 */
+	private LocationListener listener = new LocationListener() {
+
+		@Override
+		public void onLocationChanged(Location location) {
+			Rastreador.this.latitude = location.getLatitude();
+			Rastreador.this.longitude = location.getLongitude();
+			atualizaCoords(latitude, longitude);
+			Log.i("Rastreamento", "Liga rastreamento.");
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+		}
+	};
 
 	/**
 	 * Mapa.
@@ -55,32 +84,6 @@ public class Rastreador implements Rastreamento, LocationListener {
 	}
 
 	/**
-	 * Quando houver alguma mudança de localização obter coordenadas e atualizar
-	 * mapa.
-	 *
-	 * @param location
-	 */
-	@Override
-	public void onLocationChanged(Location location) {
-		this.latitude = location.getLatitude();
-		this.longitude = location.getLongitude();
-		atualizaCoords(latitude, longitude);
-		Log.i("Rastreamento", "Liga rastreamento.");
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-	}
-
-	/**
 	 * Carrega funções de localização do Android.
 	 */
 	public void liga() {
@@ -90,7 +93,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			locationManager.requestLocationUpdates(
 					LocationManager.GPS_PROVIDER, TEMPO_ATUALIZACAO,
-					MIN_DISTANCIA, this);
+					MIN_DISTANCIA, listener);
 
 			if (locationManager != null) {
 				location = locationManager
@@ -98,7 +101,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 				if (location != null) {
 					latitude = location.getLatitude();
 					longitude = location.getLongitude();
-					mapa.atualizaCoordenadas(latitude, longitude);
+					mapa.desenhaEm(latitude, longitude);
 				}
 			}
 		}
@@ -107,7 +110,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			locationManager.requestLocationUpdates(
 					LocationManager.NETWORK_PROVIDER, TEMPO_ATUALIZACAO,
-					MIN_DISTANCIA, this);
+					MIN_DISTANCIA, listener);
 
 			if (locationManager != null) {
 				location = locationManager
@@ -115,7 +118,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 				if (location != null) {
 					latitude = location.getLatitude();
 					longitude = location.getLongitude();
-					mapa.atualizaCoordenadas(latitude, longitude);
+					mapa.desenhaEm(latitude, longitude);
 				}
 			}
 		}
@@ -127,11 +130,10 @@ public class Rastreador implements Rastreamento, LocationListener {
 	 * Pausa rastreamento.
 	 *
 	 * @link 
-	 *       http://stackoverflow.com/questions/8539971/having-some-trouble-getting
-	 *       -my-gps-sensor-to-stop/8546115#8546115
+	 *       http://stackoverflow.com/questions/8539971/having-some-trouble-getting-my-gps-sensor-to-stop/8546115#8546115
 	 */
 	public void desliga() {
-		locationManager.removeUpdates(this);
+		locationManager.removeUpdates(listener);
 		Log.i("Rastreamento", "Desliga rastreamento.");
 	}
 
@@ -139,7 +141,7 @@ public class Rastreador implements Rastreamento, LocationListener {
 	 * Atualiza o rastreamento para o mapa.
 	 */
 	public void atualizaCoords(Double latitude, Double longitude) {
-		mapa.atualizaCoordenadas(latitude, longitude);
+		mapa.desenhaEm(latitude, longitude);
 	}
 
 	/**

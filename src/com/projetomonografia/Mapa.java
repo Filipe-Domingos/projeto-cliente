@@ -13,5 +13,5 @@ public interface Mapa {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public void atualizaCoordenadas(Double latitude, Double longitude);
+	public void desenhaEm(Double latitude, Double longitude);
 }

@@ -26,15 +26,13 @@ public class PrincipalActivity extends Activity implements
 	/**
 	 * Identificação do aparelho móvel.
 	 *
-	 * @link 
-	 *       <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity
-	 *       >
+	 * @link <http://pt.wikipedia.org/wiki/International_Mobile_Equipment_Identity>
 	 */
 	private String tel_IMEI;
 
 	private MapaWebView mapa;
 
-	private final static String URL_SERVIDOR = "http://tracking.comoj.com/postdata.php";// "http://192.168.56.1/projeto_monografia/postdata.php";
+	private final static String URL_SERVIDOR = "http://tracking.comoj.com/postdata.php";
 
 	private final static String API_KEY = "teste"; // API webservice
 
@@ -63,18 +61,15 @@ public class PrincipalActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// telefone
 		telInfo = new TelefoneInfo(this);
-		tel_IMEI = telInfo.getId();
+		tel_IMEI = telInfo.getIMEI();
 
-		// rastreador
 		mapa = new MapaWebView(this, R.id.mapa);
 		rastreador = new Rastreador(this, mapa);
 
-		// botao check-in
 		fazerCheckIn = (Button) findViewById(R.id.fazerCheckIn);
 		fazerCheckIn.setOnClickListener(this);
-	} // fim: onCreate
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -109,4 +104,4 @@ public class PrincipalActivity extends Activity implements
 		super.onPause();
 	}
 
-} // fim: Principal
+}
