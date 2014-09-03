@@ -3,6 +3,7 @@ package com.projetomonografia;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -33,7 +34,7 @@ public class MapaWebView implements Mapa {
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				super.onPageStarted(view, url, favicon);
 
-				carregando.setTitle("Por favor, aguarde uns instantes.");
+				carregando.setTitle("Por favor, aguarde um instante.");
 				carregando.setMessage("Carregando...");
 				carregando.setCancelable(false);
 				carregando.show();
@@ -41,6 +42,13 @@ public class MapaWebView implements Mapa {
 
 			public void onPageFinished(WebView view, String url) {
 				carregando.dismiss();
+			}
+
+			public void onReceivedError(WebView view, int errorCode,
+					String description, String failingUrl) {
+				super.onReceivedError(view, errorCode, description, failingUrl);
+				mapa.loadData("<h1>Sem Conex&atilde;o</h1>", "text/html; charset=utf-8", "utf-8");
+				Log.i("Erro webview", "Erro:" + errorCode);
 			}
 		});
 	}
